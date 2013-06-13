@@ -1,6 +1,6 @@
 ---
-title       : Introduction to googleVis
-subtitle    : UseR! 2013
+title       : googleVis Tutorial
+subtitle    : useR! 2013 Albacete, 9 July
 author      : Markus Gesmann, Diego de Castillo
 job         : Maintainer of the googleVis and ChainLadder packages
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
@@ -16,8 +16,8 @@ github      :
 
 ## Disclaimer
 
-1. I am an autodidact 
-2. What I present here works for me
+1. We are autodidact 
+2. What we present here works for us
 3. Read and follow the official [Google Chart API documentation](https://developers.google.com/chart/) and [Terms of Service](https://developers.google.com/readme/terms)
 4. Sometimes you have re-load this presentation for the charts and all slides to appear
 
@@ -120,7 +120,7 @@ plot(gvisMotionChart(Fruits, "Fruit", "Year",
 ---
 
 
-## googleVis version 0.4.2 provides interfaces to 
+## googleVis version 0.4.3 provides interfaces to 
 
 * Flash based
   * Motion Charts
@@ -252,7 +252,8 @@ levels(x$Ranking) <- nlevels(x$Rating):1
 x$Ranking <- as.character(x$Ranking)
 x$Rating <- paste(x$Country, x$Rating, sep=": ")
 G <- gvisGeoChart(x, "Country", "Ranking", hovervar="Rating",
-                options=list(gvis.editor="S&P", 
+                options=list(gvis.editor="S&P",
+                             projection="kavrayskiy-vii",
                              colorAxis="{colors:['#91BFDB', '#FC8D59']}"))
 ```
 
@@ -438,116 +439,6 @@ Your browser does not support iframe
 * [rCharts](http://ramnathv.github.io/rCharts/)
 * [clickme](https://github.com/nachocab/clickme)
 
---- 
-
-## How I created these slides
-
-```{r slidify, eval=FALSE}
-library(slidify)
-setwd("~/Dropbox/Lancaster/")
-author("Introduction_to_googleVis")
-## Edit the file index.Rmd file and then
-slidify("index.Rmd")
-```
-
----
-
-## The End. So what ...? 
-
-* googleVis brings interactive plots to R
-
-* Use them to engage with other
-
-* No more boring data
-
-----
-
-## Contact
-
-* Markus Gesmann
-* [markus.gesmann gmail.com](mailto:markus.gesmann@gmail.com)
-* My blog: [http://lamages.blogspot.com](http://lamages.blogspot.com)
-
----
-
-## Thanks
-
-* Google, who make the visualisation API available
-* All the guys behind www.gapminder.org and Hans Rosling for telling
-    everyone that data is not boring 
-* Sebastian Perez Saaibi for his inspiring talk on 'Generator
-    Tool for Google Motion Charts' at the R/RMETRICS conference 2010
-* Henrik Bengtsson for providing the 'R.rsp: R Server Pages'
-    package and his reviews and comments
-* Duncan Temple Lang for providing the 'RJSONIO' package
-* Deepayan Sarkar for showing us in the lattice package how to deal
-    with lists of options  
-* Paul Cleary for a bug report on the handling of months:
-    Google date objects expect the months Jan.- Dec. as 0 - 11 and
-    not 1 - 12.
-* Ben Bolker for comments on plot.gvis and the usage of temporary
-    files  
-
-
----
-
-## Thanks 
-
-* John Verzani for pointing out how to use the R http help server
-* Cornelius Puschmann and Jeffrey Breen for highlighting a
-    dependency issue with RJONSIO version 0.7-1
-* Manoj Ananthapadmanabhan and Anand Ramalingam for providing
-    ideas and code to animate a Google Geo Map
-* Rahul Premraj for pointing out a rounding issue with Google Maps 
-* Mike Silberbauer for an example showing how to shade the
-    areas in annotated time line charts
-* Tony Breyal for providing instructions on changing the Flash
-    security settings to display Flash charts locally 
-* Alexander Holcroft for reporting a bug in gvisMotionChart
-    when displaying data with special characters in column names
-* Pat Burns for pointing out typos in the vignette
-
----
-
-## Thanks
-
-* Jason Pickering for providing a patch to allow for quarterly 
-    and weekly time dimensions to be displayed with gvisMotionChart
-* Oliver Jay and Wai Tung Ho for reporting an issue with one-row 
-    data sets
-* Erik Bülow for pointing out how to load the Google API via a
-    secure connection
-* Sebastian Kranz for comments to enhance the argument list for
-    gvisMotionChart to make it more user friendly 
-* Sebastian Kranz and Wei Luo for providing ideas and code to
-    improve the transformation of R data frames into JSON code
-* Sebastian Kranz for reporting a bug in version 0.3.0
-* Leonardo Trabuco for helping to clarify the usage of the
-    argument state in the help file of gvisMotionChart
-* Mark Melling for reporting an issue with jsDisplayChart and
-    providing a solution
-
----
-
-## Thanks
-
-* Joe Cheng for code contribution to make googleVis work with shiny
-* John Maindonald for reporting that the WorldBank demo didn't 
-    download all data, but only the first 12000 records.
-* Sebastian Campbell for reporting a typo in the Andrew and Stock
-    data set and pointing out that the core charts, such as line
-  charts accept also date variables for the x-axis. 
-* John Maindonald for providing a simplified version of the
-    WorldBank demo using the WDI package.
-* John Muschelli for suggesting to add 'hovervar' as an additional
-    argument to gvisGeoChart.
-
----
-## Session Info
-
-```{r sessionInfo2}
-sessionInfo()
-```
 
 ---
 ## Introduction of shiny
@@ -931,29 +822,107 @@ Three objects build the framework:
 
 ---
 
+
+
+--- 
+
 ## How I created these slides
 
-```{r slidify2, eval=FALSE}
+```{r slidify, eval=FALSE}
 library(slidify)
 setwd("~/Dropbox/Lancaster/")
-author("GoogleVis_on_shiny")
+author("Introduction_to_googleVis")
 ## Edit the file index.Rmd file and then
 slidify("index.Rmd")
 ```
 
+---
+
+## The End. So what ...? 
+
+* googleVis brings interactive plots to R
+
+* Use them to engage with other
+
+* No more boring data
+
 ----
 
-## Contact
+## Thanks
 
-* Markus Gesmann
-* [markus.gesmann gmail.com](mailto:markus.gesmann@gmail.com)
-* My blog: [http://lamages.blogspot.com](http://lamages.blogspot.com)
+* Google, who make the visualisation API available
+* All the guys behind www.gapminder.org and Hans Rosling for telling
+    everyone that data is not boring 
+* Sebastian Perez Saaibi for his inspiring talk on 'Generator
+    Tool for Google Motion Charts' at the R/RMETRICS conference 2010
+* Henrik Bengtsson for providing the 'R.rsp: R Server Pages'
+    package and his reviews and comments
+* Duncan Temple Lang for providing the 'RJSONIO' package
+* Deepayan Sarkar for showing us in the lattice package how to deal
+    with lists of options  
+* Paul Cleary for a bug report on the handling of months:
+    Google date objects expect the months Jan.- Dec. as 0 - 11 and
+    not 1 - 12.
+* Ben Bolker for comments on plot.gvis and the usage of temporary
+    files  
+
 
 ---
 
+## Thanks 
+
+* John Verzani for pointing out how to use the R http help server
+* Cornelius Puschmann and Jeffrey Breen for highlighting a
+    dependency issue with RJONSIO version 0.7-1
+* Manoj Ananthapadmanabhan and Anand Ramalingam for providing
+    ideas and code to animate a Google Geo Map
+* Rahul Premraj for pointing out a rounding issue with Google Maps 
+* Mike Silberbauer for an example showing how to shade the
+    areas in annotated time line charts
+* Tony Breyal for providing instructions on changing the Flash
+    security settings to display Flash charts locally 
+* Alexander Holcroft for reporting a bug in gvisMotionChart
+    when displaying data with special characters in column names
+* Pat Burns for pointing out typos in the vignette
+
+---
+
+## Thanks
+
+* Jason Pickering for providing a patch to allow for quarterly 
+    and weekly time dimensions to be displayed with gvisMotionChart
+* Oliver Jay and Wai Tung Ho for reporting an issue with one-row 
+    data sets
+* Erik Bülow for pointing out how to load the Google API via a
+    secure connection
+* Sebastian Kranz for comments to enhance the argument list for
+    gvisMotionChart to make it more user friendly 
+* Sebastian Kranz and Wei Luo for providing ideas and code to
+    improve the transformation of R data frames into JSON code
+* Sebastian Kranz for reporting a bug in version 0.3.0
+* Leonardo Trabuco for helping to clarify the usage of the
+    argument state in the help file of gvisMotionChart
+* Mark Melling for reporting an issue with jsDisplayChart and
+    providing a solution
+
+---
+
+## Thanks
+
+* Joe Cheng for code contribution to make googleVis work with shiny
+* John Maindonald for reporting that the WorldBank demo didn't 
+    download all data, but only the first 12000 records.
+* Sebastian Campbell for reporting a typo in the Andrew and Stock
+    data set and pointing out that the core charts, such as line
+  charts accept also date variables for the x-axis. 
+* John Maindonald for providing a simplified version of the
+    WorldBank demo using the WDI package.
+* John Muschelli for suggesting to add 'hovervar' as an additional
+    argument to gvisGeoChart.
+
+---
 ## Session Info
-```{r sessionInfo}
+
+```{r sessionInfo2}
 sessionInfo()
 ```
-
-

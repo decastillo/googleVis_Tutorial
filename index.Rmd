@@ -16,7 +16,7 @@ github      :
 
 ## Disclaimer
 
-1. We are autodidact 
+1. We are autodidacts 
 2. What we present here works for us
 3. Read and follow the official [Google Chart API documentation](https://developers.google.com/chart/) and [Terms of Service](https://developers.google.com/readme/terms)
 4. Sometimes you have re-load this presentation for the charts and all slides to appear
@@ -30,6 +30,7 @@ github      :
 * R package googleVis
   * Concepts of googleVis
   * Case studies
+* googleVis and shiny  
 
 ```{r setOptions, echo=FALSE}
 options(gvis.plot.tag="chart")
@@ -478,6 +479,7 @@ This file contains global variables, libraries etc.  [optional]
 ```{r global, eval=FALSE}
 ## E.g.
 library(googleVis)
+library(Cairo)
 The_Answer <- 42
 ```
 
@@ -527,7 +529,45 @@ height="100%" frameborder="0">Loading</iframe>
 
 ---
 
-## Select data for a scatter chart
+## Details for ui.r / part 1
+
+Ready-to-Use widgets for input parameter:
+
+- selectInput
+- checkboxInput
+- numericInput
+- sliderInput
+- textInput
+- radioButtons
+
+---
+
+## Details for ui.r / part 2
+
+Elements for structural Usage:
+
+- conditionalPanel
+- tabsetPanel + tabPanel
+- includeMarkdown
+
+---
+
+## Details for server.r
+
+output components:
+
+- renderPlot
+- renderPrint
+- renderGvis 
+- renderTable
+
+additional compontents:
+- downloadHandler
+- fileInput
+
+---
+
+## Example 1: Select data for a scatter chart
 
 <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_1/" width="100%" 
 height="100%" frameborder="0">Loading</iframe>
@@ -576,7 +616,7 @@ shinyUI(pageWithSidebar(
 ---
 
 
-## Interactive table
+## Example 2: Interactive table
 
 <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_2/" width="100%" 
 height="100%" frameborder="0">Loading</iframe>
@@ -623,14 +663,14 @@ shinyUI(pageWithSidebar(
 
 ---
 
-## Animated geo chart
+## Example 3: Animated geo chart
 
 <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_3/" width="100%" 
 height="100%" frameborder="0">Loading</iframe>
 
 ---
 
-## Example 3: loaddata.R
+## Example 3: global.R
 
 ```{r exmpl3_loaddata, eval=FALSE, tidy=FALSE}
 ## Markus Gesmann, February 2013
@@ -653,7 +693,6 @@ require(googleVis)
 
 ## Example 3: server.R
 ```{r exmpl3_server, eval=FALSE, tidy=FALSE}
-source('loaddata.R', local=TRUE)
 shinyServer(function(input, output) {
   myYear <- reactive({
     input$Year
@@ -679,7 +718,6 @@ shinyServer(function(input, output) {
 ## Example 3: ui.R
 
 ```{r exmpl3_ui, eval=FALSE, tidy=FALSE}
-require(shiny)
 shinyUI(pageWithSidebar(
   headerPanel("Example 3: animated geo chart"),
   sidebarPanel(
@@ -696,7 +734,7 @@ shinyUI(pageWithSidebar(
 
 ---
 
-## googleVis with interaction
+## Example 4: googleVis with interaction
 
 <iframe src="http://glimmer.rstudio.com/mages/Interaction/" width="100%" 
 height="100%" frameborder="0">Loading</iframe>
@@ -769,36 +807,86 @@ shinyUI(pageWithSidebar(
 )
 ```
 
----
+--- 
 
 ## Reactive model
 
 Three objects build the framework:
 
-* reactive source     [form input] ![source](assets/img/source.png)
+* reactive source     [selectInput] 
+  <img src="assets/img/source.png" alt="source" style="vertical-align:middle;">
 
 * reactive conductor  [db-connect / calculate]
+  <img src="assets/img/conductor.png" alt="conductor" style="vertical-align:middle;">
 
-* reactive endpoint    [plot/table]
-
----
-
-## Reactive model
-
-![](assets/img/p1.png)
-
+* reactive endpoint    [renderPlot/renderTable]
+  <img src="assets/img/endpoint.png" alt="endpoint" style="vertical-align:middle;">
 
 ---
 
 ## Reactive model
 
-![](assets/img/p2.png)
+![](assets/img/reactivemodel_1.png)
 
 ---
 
 ## Reactive model
 
-![](assets/img/p3.png)
+![](assets/img/reactivemodel_2.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_3.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_4.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_5.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_6.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_7.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_8.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_9.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_10.png)
+
+---
+
+## Reactive model
+
+![](assets/img/reactivemodel_11.png)
 
 ---
 

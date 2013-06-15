@@ -62,7 +62,7 @@ options(gvis.plot.tag="chart")
 
 * [googleVis](http://code.google.com/p/google-motion-charts-with-r/) is a package for [R](http://www.r-poject.org/) and provides an interface between R and the [Google Chart Tools](https://developers.google.com/chart/)
 
-* The functions of the package allow users to visualise data with the Google Chart Tools without uploading their data to Google
+* The functions of the package allow users to visualize data with the Google Chart Tools without uploading their data to Google
 
 * The output of googleVis functions is html code that contains the data and references to JavaScript functions hosted by Google
 
@@ -94,7 +94,7 @@ options(gvis.plot.tag="chart")
 The chart code has five generic parts:
 
 1. References to Google’s AJAX and Visualisation API
-2. Data to visualise as a DataTable
+2. Data to visualize as a DataTable
 3. Instance call to create the chart
 4. Method call to draw the chart including options
 5. HTML &lt;div&gt; element to add the chart to the page
@@ -453,7 +453,7 @@ Your browser does not support iframe
 
 ## What makes shiny special ?
 
-* Very Simple: Ready to Use Components (widgets)
+* very simple: ready to use components (widgets)
 * event-driven (reactive programming): input <-> output
 * communication bidirectional with web sockets (HTTP)
 * JavaScript with JQuery (HTML) 
@@ -544,7 +544,7 @@ Ready-to-Use widgets for input parameter:
 
 ## Details for ui.r / part 2
 
-Elements for structural Usage:
+Elements for structural usage:
 
 - conditionalPanel
 - tabsetPanel + tabPanel
@@ -904,37 +904,24 @@ Three objects build the framework:
 
 ## The End. So what ...? 
 
-* Shiny makes it easy to build interactive applications with R
+* googleVis brings interactive plots to R
+* Use them to engage with other
 * googleVis plots be as easily integrated as other static plots
+* Shiny makes it easy to build interactive applications with R
 * No more boring data
 
----
-
-
-
---- 
+----
 
 ## How I created these slides
 
 ```{r slidify, eval=FALSE}
 library(slidify)
-setwd("~/Dropbox/Lancaster/")
-author("Introduction_to_googleVis")
+author("googleVis_Tutorial")
 ## Edit the file index.Rmd file and then
 slidify("index.Rmd")
 ```
 
 ---
-
-## The End. So what ...? 
-
-* googleVis brings interactive plots to R
-
-* Use them to engage with other
-
-* No more boring data
-
-----
 
 ## Thanks
 

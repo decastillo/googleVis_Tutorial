@@ -1,8 +1,8 @@
 ---
 title       : googleVis Tutorial
-subtitle    : useR! 2013 Albacete, 9 July
-author      : Markus Gesmann, Diego de Castillo
-job         : Maintainer of the googleVis and ChainLadder packages
+subtitle    : useR! Conference, Albacete, 9 July 2013
+author      : Markus Gesmann and Diego de Castillo
+job         : Authors of the googleVis package
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
@@ -19,7 +19,7 @@ github      :
 1. We are autodidacts 
 2. What we present here works for us
 3. Read and follow the official [Google Chart API documentation](https://developers.google.com/chart/) and [Terms of Service](https://developers.google.com/readme/terms)
-4. Sometimes you have re-load this presentation for the charts and all slides to appear
+4. Sometimes you have to re-load this presentation for the charts and all slides to appear
 
 ---
 
@@ -30,11 +30,16 @@ github      :
 * R package googleVis
   * Concepts of googleVis
   * Case studies
-* googleVis and shiny  
+* googleVis ON shiny  
 
 ```{r setOptions, echo=FALSE}
 options(gvis.plot.tag="chart")
 ```
+
+
+--- .segue .dark
+
+## Introduction and motivation
 
 --- .class #id 
 
@@ -56,20 +61,9 @@ options(gvis.plot.tag="chart")
 
 * Hence, we had to create an interface between the Google Chart Tools and R
 
---- 
+--- .segue .dark
 
-## Overview of googleVis
-
-* [googleVis](http://code.google.com/p/google-motion-charts-with-r/) is a package for [R](http://www.r-poject.org/) and provides an interface between R and the [Google Chart Tools](https://developers.google.com/chart/)
-
-* The functions of the package allow users to visualize data with the Google Chart Tools without uploading their data to Google
-
-* The output of googleVis functions is html code that contains the data and references to JavaScript functions hosted by Google
-
-* To view the output a browser with an internet connection is required, the actual chart is rendered in the browser; some charts require Flash
-
-* See also: **Using the Google Visualisation API with R**, 
-  [The R Journal, 3(2):40-44, December 2011](http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf) and googleVis [package vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf)
+## Google Chart Tools
 
 ---
 
@@ -118,8 +112,27 @@ plot(gvisMotionChart(Fruits, "Fruit", "Year",
                      options=list(width=600, height=400)))
 ```
 
----
 
+--- .segue .dark
+
+## R package googleVis 
+
+--- 
+
+## Overview of googleVis
+
+* [googleVis](http://code.google.com/p/google-motion-charts-with-r/) is a package for [R](http://www.r-poject.org/) and provides an interface between R and the [Google Chart Tools](https://developers.google.com/chart/)
+
+* The functions of the package allow users to visualize data with the Google Chart Tools without uploading their data to Google
+
+* The output of googleVis functions is html code that contains the data and references to JavaScript functions hosted by Google
+
+* To view the output a browser with an internet connection is required, the actual chart is rendered in the browser; some charts require Flash
+
+* See also: **Using the Google Visualisation API with R**, 
+  [The R Journal, 3(2):40-44, December 2011](http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf) and googleVis [package vignette](http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf)
+
+---
 
 ## googleVis version 0.4.3 provides interfaces to 
 
@@ -416,33 +429,12 @@ Your browser does not support iframe
 
 * See the example in `?plot.gvis` for more details
 
----
+--- .segue .dark
 
-## Blog articles with googleVis tips
-
-* [How to set axis options in googleVis](http://lamages.blogspot.co.uk/2013/04/how-to-set-axis-options-in-googlevis.html)
-* [World Bank data demo](http://lamages.blogspot.co.uk/2013/03/googlevis-042-with-support-for-shiny.html)
-* [First steps of using googleVis on shiny](http://lamages.blogspot.co.uk/2013/02/first-steps-of-using-googlevis-on-shiny.html)
-* [Using googleVis with knitr](http://lamages.blogspot.co.uk/2012/10/googlevis-032-is-released-better.html)
-* [Rook rocks! Example with googleVis](http://lamages.blogspot.co.uk/2012/08/rook-rocks-example-with-googlevis.html)
-* [Plotting share price data](http://lamages.blogspot.co.uk/2012/02/reshaping-world.html)
+## googleVis on shiny
 
 ---
-
-## Other R packages
-
-*  [R animation package allows to create SWF, GIF and MPEG directly](http://animation.yihui.name/)
-*  [iplots: iPlots - interactive graphics for R](http://cran.r-project.org/web/packages/iplots/)
-*  [Acinonyx aka iPlots eXtreme](http://rforge.net/Acinonyx/index.html)
-*  [gridSVG: Export grid graphics as SVG](http://cran.r-project.org/web/packages/gridSVG/index.html)
-*  [plotGoogleMaps: Plot HTML output with Google Maps API and your own data](http://cran.r-project.org/web/packages/plotGoogleMaps/)
-*  [RgoogleMaps: Overlays on Google map tiles in R](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
-* [rCharts](http://ramnathv.github.io/rCharts/)
-* [clickme](https://github.com/nachocab/clickme)
-
-
----
-## Introduction of shiny
+## Introduction to shiny
 
 * R Package shiny from RStudio supplies:
   * interactive web application  / dynamic HTML-Pages with plain R
@@ -676,10 +668,9 @@ height="100%" frameborder="0">Loading</iframe>
 ## Markus Gesmann, February 2013
 ## Prepare data to be displayed
 ## Load presidential election data by state from 1932 - 2012
-url <- paste0("http://www.google.com/fusiontables/api/query?",
-              "sql=SELECT+*+FROM+1RPEUiwiM092IxMew7LhzEmMDvqPomAA7kqK1qa4")
+dat <- read.csv("http://dl.dropboxusercontent.com/u/7586336/blogger/US%20Presidential%20Elections.csv", 
+                stringsAsFactors=TRUE)
 
-dat <- read.csv(url, stringsAsFactors=TRUE)
 
 ## Add min and max values to the data
 datminmax = data.frame(state=rep(c("Min", "Max"),21), 
@@ -900,19 +891,13 @@ Three objects build the framework:
 * [Shiny on R-Bloggers](http://www.r-bloggers.com/?s=shiny)
 
 
---- 
+--- .segue .dark
 
-## The End. So what ...? 
-
-* googleVis brings interactive plots to R
-* Use them to engage with other
-* googleVis plots be as easily integrated as other static plots
-* Shiny makes it easy to build interactive applications with R
-* No more boring data
+## The End. Questions? 
 
 ----
 
-## How I created these slides
+## How we created these slides
 
 ```{r slidify, eval=FALSE}
 library(slidify)
@@ -920,6 +905,31 @@ author("googleVis_Tutorial")
 ## Edit the file index.Rmd file and then
 slidify("index.Rmd")
 ```
+
+---
+
+
+## Blog articles with googleVis tips
+
+* [How to set axis options in googleVis](http://lamages.blogspot.co.uk/2013/04/how-to-set-axis-options-in-googlevis.html)
+* [World Bank data demo](http://lamages.blogspot.co.uk/2013/03/googlevis-042-with-support-for-shiny.html)
+* [First steps of using googleVis on shiny](http://lamages.blogspot.co.uk/2013/02/first-steps-of-using-googlevis-on-shiny.html)
+* [Using googleVis with knitr](http://lamages.blogspot.co.uk/2012/10/googlevis-032-is-released-better.html)
+* [Rook rocks! Example with googleVis](http://lamages.blogspot.co.uk/2012/08/rook-rocks-example-with-googlevis.html)
+* [Plotting share price data](http://lamages.blogspot.co.uk/2012/02/reshaping-world.html)
+
+---
+
+## Other R packages
+
+*  [R animation package allows to create SWF, GIF and MPEG directly](http://animation.yihui.name/)
+*  [iplots: iPlots - interactive graphics for R](http://cran.r-project.org/web/packages/iplots/)
+*  [Acinonyx aka iPlots eXtreme](http://rforge.net/Acinonyx/index.html)
+*  [gridSVG: Export grid graphics as SVG](http://cran.r-project.org/web/packages/gridSVG/index.html)
+*  [plotGoogleMaps: Plot HTML output with Google Maps API and your own data](http://cran.r-project.org/web/packages/plotGoogleMaps/)
+*  [RgoogleMaps: Overlays on Google map tiles in R](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
+* [rCharts](http://ramnathv.github.io/rCharts/)
+* [clickme](https://github.com/nachocab/clickme)
 
 ---
 

@@ -30,7 +30,7 @@ github      :
 * R package googleVis
   * Concepts of googleVis
   * Case studies
-* googleVis ON shiny  
+* googleVis on shiny  
 
 ```{r setOptions, echo=FALSE}
 options(gvis.plot.tag="chart")
@@ -1004,6 +1004,7 @@ slidify("index.Rmd")
     WorldBank demo using the WDI package.
 * John Muschelli for suggesting to add 'hovervar' as an additional
     argument to gvisGeoChart.
+* [Ramnath Vaidyanathan](https://github.com/ramnathv) for slidify.
 
 ---
 ## Session Info

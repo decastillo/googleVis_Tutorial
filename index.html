@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>googleVis Tutorial</title>
+  <meta charset="utf-8">
+  <meta name="description" content="googleVis Tutorial">
+  <meta name="author" content="Markus Gesmann and Diego de Castillo">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <hgroup class="auto-fadein">
+        <h1>googleVis Tutorial</h1>
+        <h2>useR! Conference, Albacete, 9 July 2013</h2>
+        <p>Markus Gesmann and Diego de Castillo<br/>Authors of the googleVis package</p>
+      </hgroup>
+      <a href="https://github.com/decastillo/googleVis_Tutorial/zipball/gh-pages" class="example">
+        Download
+      </a>
+      
+      <footer class = 'license'>
+        <a href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>
+        <img width = '80px' src = 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png'>
+        </a>
+      </footer>
+    </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Disclaimer</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>We are autodidacts </li>
+<li>What we present here works for us</li>
+<li>Read and follow the official <a href="https://developers.google.com/chart/">Google Chart API documentation</a> and <a href="https://developers.google.com/readme/terms">Terms of Service</a></li>
+<li>Sometimes you have to re-load this presentation for the charts and all slides to appear</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Agenda</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Introduction and motivation</li>
+<li>Google Chart Tools</li>
+<li>R package googleVis
+
+<ul>
+<li>Concepts of googleVis</li>
+<li>Case studies</li>
+</ul></li>
+<li>googleVis on shiny<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Introduction and motivation</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Hans Rosling: No more boring data</h2>
+  </hgroup>
+  <article>
+    <iframe width="420" height="315" src="http://www.youtube.com/embed/hVimVzgtD6w" frameborder="0" allowfullscreen></iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Motivation for googleVis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Inspired by Hans Rosling’s talks we wanted to use interactive data visualisation tools to foster the dialogue between data analysts and others</p></li>
+<li><p>We wanted moving bubbles charts as well</p></li>
+<li><p>The software behind Hans’ talk was bought by Google and integrated as motion charts into their Visualisation API</p></li>
+<li><p>Ideally we wanted to use R, a language we knew</p></li>
+<li><p>Hence, we had to create an interface between the Google Chart Tools and R</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Google Chart Tools</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Introduction to Google Chart Tools</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Google Chart Tools provide a way to visualize data on web sites</p></li>
+<li><p>The API makes it easy to create interactive charts</p></li>
+<li><p>It uses JavaScript and DataTable / JSON as input</p></li>
+<li><p>Output is either HTML5/SVG or Flash</p></li>
+<li><p>Browser with internet connection required to display chart</p></li>
+<li><p>Please read the Google <a href="https://developers.google.com/terms/">Terms of Service</a> before you start</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Structure of Google Charts</h2>
+  </hgroup>
+  <article>
+    <p>The chart code has five generic parts:</p>
+
+<ol>
+<li>References to Google’s AJAX and Visualisation API</li>
+<li>Data to visualize as a DataTable</li>
+<li>Instance call to create the chart</li>
+<li>Method call to draw the chart including options</li>
+<li>HTML &lt;div&gt; element to add the chart to the page</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>How hard can it be?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Transform data into JSON object </li>
+<li>Wrap some HTML and JavaScript around it </li>
+<li>Thus, googleVis started life in August 2010</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Motion chart example</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(googleVis)
+</code></pre>
+
+<pre><code>## Welcome to googleVis version 0.4.3
+## 
+## Please read the Google API Terms of Use before you use the package:
+## https://developers.google.com/terms/
+## 
+## Type ?googleVis to access the overall documentation and
+## vignette(&#39;googleVis&#39;) for the package vignette. You can execute a demo of
+## the package via: demo(googleVis)
+## 
+## More information is available on the googleVis project web-site:
+## http://code.google.com/p/google-motion-charts-with-r/
+## 
+## Contact: &lt;rvisualisation@gmail.com&gt;
+## 
+## To suppress the this message use:
+## suppressPackageStartupMessages(library(googleVis))
+</code></pre>
+
+<pre><code class="r">plot(gvisMotionChart(Fruits, &quot;Fruit&quot;, &quot;Year&quot;, options = list(width = 600, height = 400)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>R package googleVis</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Overview of googleVis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p><a href="http://code.google.com/p/google-motion-charts-with-r/">googleVis</a> is a package for <a href="http://www.r-poject.org/">R</a> and provides an interface between R and the <a href="https://developers.google.com/chart/">Google Chart Tools</a></p></li>
+<li><p>The functions of the package allow users to visualize data with the Google Chart Tools without uploading their data to Google</p></li>
+<li><p>The output of googleVis functions is html code that contains the data and references to JavaScript functions hosted by Google</p></li>
+<li><p>To view the output a browser with an internet connection is required, the actual chart is rendered in the browser; some charts require Flash</p></li>
+<li><p>See also: <strong>Using the Google Visualisation API with R</strong>, 
+<a href="http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de%7ECastillo.pdf">The R Journal, 3(2):40-44, December 2011</a> and googleVis <a href="http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf">package vignette</a></p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>googleVis version 0.4.3 provides interfaces to</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Flash based
+
+<ul>
+<li>Motion Charts</li>
+<li>Annotated Time Lines</li>
+<li>Geo Maps</li>
+</ul></li>
+<li>HMTL5/SVG based
+
+<ul>
+<li>Maps, Geo Charts and Intensity Maps</li>
+<li>Tables, Gauges, Tree Maps</li>
+<li>Line-, Bar-, Column-, Area- and Combo Charts</li>
+<li>Scatter-, Bubble-, Candlestick-, Pie- and Org Charts</li>
+</ul></li>
+</ul>
+
+<p>Run <code>demo(googleVis)</code> to see <a href="http://code.google.com/p/google-motion-charts-with-r/wiki/GadgetExamples">examples</a> of all charts and read the <a href="http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf">vignette</a> for more details.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Key ideas of googleVis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Create wrapper functions in R which generate html files with references to Google&#39;s Chart Tools API</li>
+<li>Transform R data frames into <a href="http://www.json.org/">JSON</a> objects with <a href="http://www.omegahat.org/RJSONIO/">RJSONIO</a></li>
+</ul>
+
+<pre><code class="r">library(RJSONIO)
+dat &lt;- data.frame(x = LETTERS[1:2], y = 1:2)
+cat(toJSON(dat))
+</code></pre>
+
+<pre><code>## {
+##  &quot;x&quot;: [ &quot;A&quot;, &quot;B&quot; ],
+## &quot;y&quot;: [ 1, 2 ] 
+## }
+</code></pre>
+
+<ul>
+<li>Display the HTML output with the R HTTP help server</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>The googleVis concept</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Charts: <em>&#39;gvis&#39; + ChartType</em></li>
+<li>For a motion chart we have</li>
+</ul>
+
+<pre><code class="r">M &lt;- gvisMotionChart(data, idvar=&#39;id&#39;, timevar=&#39;date&#39;, 
+                     options=list(), chartid)
+</code></pre>
+
+<ul>
+<li><p>Output of googleVis is a list of list</p></li>
+<li><p>Display the chart by simply plotting the output: <code>plot(M)</code></p></li>
+<li><p>Plot will generate a temporary html-file and open it in a new browser window </p></li>
+<li><p>Specific parts can be extracted, e.g. </p>
+
+<ul>
+<li>the chart: <code>M$html$chart</code> or </li>
+<li>data: <code>M$html$chart[&quot;jsData&quot;]</code></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>gvis-Chart structure</h2>
+  </hgroup>
+  <article>
+    <p>List structure:</p>
+
+<p><img height=350 src="https://dl.dropbox.com/u/7586336/googleVisExamples/gvisObject.png" alt="gvis object structure" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Line chart with options set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">df &lt;- data.frame(label=c(&quot;US&quot;, &quot;GB&quot;, &quot;BR&quot;), val1=c(1,3,4), val2=c(23,12,32))
+Line &lt;- gvisLineChart(df, xvar=&quot;label&quot;, yvar=c(&quot;val1&quot;,&quot;val2&quot;),
+        options=list(title=&quot;Hello World&quot;, legend=&quot;bottom&quot;,
+                titleTextStyle=&quot;{color:&#39;red&#39;, fontSize:18}&quot;,                         
+                vAxis=&quot;{gridlines:{color:&#39;red&#39;, count:3}}&quot;,
+                hAxis=&quot;{title:&#39;My Label&#39;, titleTextStyle:{color:&#39;blue&#39;}}&quot;,
+                series=&quot;[{color:&#39;green&#39;, targetAxisIndex: 0}, 
+                         {color: &#39;blue&#39;,targetAxisIndex:1}]&quot;,
+                vAxes=&quot;[{title:&#39;Value 1 (%)&#39;, format:&#39;##,######%&#39;}, 
+                                  {title:&#39;Value 2 (\U00A3)&#39;}]&quot;,                          
+                curveType=&quot;function&quot;, width=500, height=300                         
+                ))
+</code></pre>
+
+<p>Options in googleVis have to follow the Google Chart API options</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Line chart with options</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(Line)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>On-line changes</h2>
+  </hgroup>
+  <article>
+    <p>You can enable the chart editor which allows users to change the chart.</p>
+
+<pre><code class="r">plot(gvisLineChart(df, options = list(gvis.editor = &quot;Edit me!&quot;, height = 350)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Change motion chart settings</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(gvisMotionChart(Fruits, &quot;Fruit&quot;, &quot;Year&quot;, options = list(width = 500, height = 350)))
+</code></pre>
+
+<p>Change displaying settings via the browser, then copy the state string from the &#39;Advanced&#39; tab and set to <code>state</code> argument in <code>options</code>.
+Ensure you have newlines at the beginning and end of the string. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Motion chart with initial settings changed</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">myStateSettings &lt;- &#39;\n{&quot;iconType&quot;:&quot;LINE&quot;, &quot;dimensions&quot;:{
+    &quot;iconDimensions&quot;:[&quot;dim0&quot;]},&quot;xAxisOption&quot;:&quot;_TIME&quot;,
+    &quot;orderedByX&quot;:false,&quot;orderedByY&quot;:false,&quot;yZoomedDataMax&quot;:100}\n&#39;
+plot(gvisMotionChart(Fruits, &quot;Fruit&quot;, &quot;Year&quot;, 
+      options=list(state=myStateSettings, height=320)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Displaying geographical information</h2>
+  </hgroup>
+  <article>
+    <p>Plot countries&#39; S&amp;P credit rating sourced from Wikipedia (requires googleVis 0.4.3)</p>
+
+<pre><code class="r">library(XML)
+url &lt;- &quot;http://en.wikipedia.org/wiki/List_of_countries_by_credit_rating&quot;
+x &lt;- readHTMLTable(readLines(url), which=3)
+levels(x$Rating) &lt;- substring(levels(x$Rating), 4, 
+                            nchar(levels(x$Rating)))
+x$Ranking &lt;- x$Rating
+levels(x$Ranking) &lt;- nlevels(x$Rating):1
+x$Ranking &lt;- as.character(x$Ranking)
+x$Rating &lt;- paste(x$Country, x$Rating, sep=&quot;: &quot;)
+G &lt;- gvisGeoChart(x, &quot;Country&quot;, &quot;Ranking&quot;, hovervar=&quot;Rating&quot;,
+                options=list(gvis.editor=&quot;S&amp;P&quot;,
+                             projection=&quot;kavrayskiy-vii&quot;,
+                             colorAxis=&quot;{colors:[&#39;#91BFDB&#39;, &#39;#FC8D59&#39;]}&quot;))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Chart countries&#39; S&amp;P credit rating</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(G)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Geo chart with markers</h2>
+  </hgroup>
+  <article>
+    <p>Display earth quake information of last 30 days</p>
+
+<pre><code class="r">library(XML)
+eq &lt;- read.csv(&quot;http://earthquake.usgs.gov/earthquakes/feed/v0.1/summary/2.5_week.csv&quot;)
+eq$loc=paste(eq$Latitude, eq$Longitude, sep=&quot;:&quot;)
+
+G &lt;- gvisGeoChart(eq, &quot;loc&quot;, &quot;Depth&quot;, &quot;Magnitude&quot;,
+                   options=list(displayMode=&quot;Markers&quot;, 
+                   colorAxis=&quot;{colors:[&#39;purple&#39;, &#39;red&#39;, &#39;orange&#39;, &#39;grey&#39;]}&quot;,
+                   backgroundColor=&quot;lightblue&quot;), chartid=&quot;EQ&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Geo chart of earth quakes</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(G)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Org chart</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">Org &lt;- gvisOrgChart(Regions, options=list(width=600, height=250,
+                               size=&#39;large&#39;, allowCollapse=TRUE))
+plot(Org)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Org chart data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">Regions
+</code></pre>
+
+<pre><code>##     Region  Parent Val Fac
+## 1   Global    &lt;NA&gt;  10   2
+## 2  America  Global   2   4
+## 3   Europe  Global  99  11
+## 4     Asia  Global  10   8
+## 5   France  Europe  71   2
+## 6   Sweden  Europe  89   3
+## 7  Germany  Europe  58  10
+## 8   Mexico America   2   9
+## 9      USA America  38  11
+## 10   China    Asia   5   1
+## 11   Japan    Asia  48  11
+</code></pre>
+
+<p>Notice the data structure. Each row in the data table describes one node. Each node (except the root node) has one or more parent nodes. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Tree map</h2>
+  </hgroup>
+  <article>
+    <p>Same data structure as for org charts required.</p>
+
+<pre><code class="r">Tree &lt;- gvisTreeMap(Regions, idvar = &quot;Region&quot;, parentvar = &quot;Parent&quot;, sizevar = &quot;Val&quot;, 
+    colorvar = &quot;Fac&quot;, options = list(width = 450, height = 320))
+plot(Tree)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Annotated time line data</h2>
+  </hgroup>
+  <article>
+    <p>Display time series data with notes.</p>
+
+<pre><code class="r">head(Stock)
+</code></pre>
+
+<pre><code>##         Date  Device  Value          Title          Annotation
+## 1 2008-01-01 Pencils   3000           &lt;NA&gt;                &lt;NA&gt;
+## 2 2008-01-02 Pencils  14045           &lt;NA&gt;                &lt;NA&gt;
+## 3 2008-01-03 Pencils   5502           &lt;NA&gt;                &lt;NA&gt;
+## 4 2008-01-04 Pencils  75284           &lt;NA&gt;                &lt;NA&gt;
+## 5 2008-01-05 Pencils  41476 Bought pencils Bought 200k pencils
+## 6 2008-01-06 Pencils 333222           &lt;NA&gt;                &lt;NA&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Annotated time line</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">A1 &lt;- gvisAnnotatedTimeLine(Stock, datevar = &quot;Date&quot;, numvar = &quot;Value&quot;, idvar = &quot;Device&quot;, 
+    titlevar = &quot;Title&quot;, annotationvar = &quot;Annotation&quot;, options = list(displayAnnotations = TRUE, 
+        legendPosition = &quot;newRow&quot;, width = 600, height = 300), chartid = &quot;ATLC&quot;)
+plot(A1)
+</code></pre>
+
+<iframe src="https://dl.dropboxusercontent.com/u/7586336/googleVisExamples/AnnotatedTimeLineExample.html" frameborder="0", width="620", height="350">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Merging gvis-objects</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">G &lt;- gvisGeoChart(Exports, &quot;Country&quot;, &quot;Profit&quot;, 
+                  options=list(width=250, height=120))
+B &lt;- gvisBarChart(Exports[,1:2], yvar=&quot;Profit&quot;, xvar=&quot;Country&quot;,                  
+                  options=list(width=250, height=260, legend=&#39;none&#39;))
+M &lt;- gvisMotionChart(Fruits, &quot;Fruit&quot;, &quot;Year&quot;,
+                     options=list(width=400, height=380))
+GBM &lt;- gvisMerge(gvisMerge(G,B, horizontal=FALSE), 
+                 M, horizontal=TRUE, tableOptions=&quot;cellspacing=5&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Display merged gvis-objects</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(GBM)
+</code></pre>
+
+<iframe src="https://dl.dropboxusercontent.com/u/7586336/googleVisExamples/gvisMergeExample.html" frameborder="0", width="620", height="420">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>Embedding googleVis chart into your web page</h2>
+  </hgroup>
+  <article>
+    <p>Suppose you have an existing web page and would like to integrate the output of a googleVis function, such as <code>gvisMotionChart</code>.</p>
+
+<p>In this case you only need the chart output from <code>gvisMotionChart</code>. So you can either copy and paste the output from the R console</p>
+
+<pre><code class="r">print(M, &quot;chart&quot;)  #### or cat(M$html$chart)
+</code></pre>
+
+<p>into your existing html page, or write the content directly into a file</p>
+
+<pre><code class="r">print(M, &quot;chart&quot;, file = &quot;myfilename&quot;)
+</code></pre>
+
+<p>and process it from there.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Embedding googleVis output via iframe</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Embedding googleVis charts is often easiest done via the iframe tag:</li>
+<li>Host the googleVis output on-line, e.g. public Dropbox folder</li>
+<li>Use the iframe tag on your page:</li>
+</ul>
+
+<pre><code>&lt;iframe width=620 height=300 frameborder=&quot;0&quot;
+src=&quot;http://dl.dropbox.com/u/7586336/RSS2012/line.html&quot;&gt;
+Your browser does not support iframe
+&lt;/iframe&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>iFrame output</h2>
+  </hgroup>
+  <article>
+    <iframe width=620 height=300 frameborder="0" src="http://dl.dropbox.com/u/7586336/RSS2012/line.html">You browser does not support iframe</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Including googleVis output in knitr with plot statement</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>With version 0.3.2 of googleVis <code>plot.gvis</code> gained the argument <code>&#39;tag&#39;</code>, which works similar to the argument of the same name in <code>print.gvis</code>. </p></li>
+<li><p>By default the tag argument is <code>NULL</code> and <code>plot.gvis</code> has the same behaviour as in the previous versions of googleVis. </p></li>
+<li><p>Change the tag to <code>&#39;chart&#39;</code> and <code>plot.gvis</code> will produce the same output as <code>print.gvis</code>. </p></li>
+<li><p>Thus, setting the <code>gvis.plot.tag</code> value to <code>&#39;chart&#39;</code> in <code>options()</code> will return the HTML code of the chart when the file is parsed with <code>knitr</code>. </p></li>
+<li><p>See the example in <code>?plot.gvis</code> for more details</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>googleVis on shiny</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Introduction to shiny</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>R Package shiny from RStudio supplies:
+
+<ul>
+<li>interactive web application  / dynamic HTML-Pages with plain R</li>
+<li>GUI for own needs</li>
+<li>Website as server</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>What makes shiny special ?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>very simple: ready to use components (widgets)</li>
+<li>event-driven (reactive programming): input &lt;-&gt; output</li>
+<li>communication bidirectional with web sockets (HTTP)</li>
+<li>JavaScript with JQuery (HTML) </li>
+<li>CSS with bootstrap</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>Getting started: Setup</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li><code>R&gt; install.packages(&quot;shiny&quot;)</code> from CRAN</li>
+<li>Create directory <code>HelloShiny</code> </li>
+<li>Edit <code>global.r</code></li>
+<li>Edit <code>ui.r</code></li>
+<li>Edit <code>server.r</code></li>
+<li><code>R&gt; shiny::runApp(&quot;HelloShiny&quot;)</code></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>Getting started: global.R</h2>
+  </hgroup>
+  <article>
+    <p>This file contains global variables, libraries etc.  [optional]</p>
+
+<pre><code class="r">## E.g.
+library(googleVis)
+library(Cairo)
+The_Answer &lt;- 42
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>Getting started: server.R</h2>
+  </hgroup>
+  <article>
+    <p>The Core Component with functionality for input and output as plots, 
+tables and plain text.</p>
+
+<pre><code class="r">shinyServer(function(input, output) {
+       output$distPlot &lt;- renderPlot({
+         dist &lt;- rnorm(input$obs)
+         hist(dist)
+         })
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>Getting started: ui.R</h2>
+  </hgroup>
+  <article>
+    <p>This file creates the structure of HTML</p>
+
+<pre><code class="r">shinyUI(pageWithSidebar(
+   headerPanel(&quot;Example Hello Shiny&quot;),
+   sidebarPanel(
+      sliderInput(&quot;obs&quot;,  &quot;&quot;, 0, 1000, 500)
+   ),
+   mainPanel(
+      plotOutput(&quot;distPlot&quot;)
+   )
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-44" style="background:;">
+  <hgroup>
+    <h2>Getting strated: runApp</h2>
+  </hgroup>
+  <article>
+    <p><code>R&gt; shiny::runApp(&#39;HelloShiny&#39;)</code></p>
+
+<iframe src="http://glimmer.rstudio.com/mages/HelloShiny/" width="100%" 
+height="100%" frameborder="0">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-45" style="background:;">
+  <hgroup>
+    <h2>Details for ui.r / part 1</h2>
+  </hgroup>
+  <article>
+    <p>Ready-to-Use widgets for input parameter:</p>
+
+<ul>
+<li>selectInput</li>
+<li>checkboxInput</li>
+<li>numericInput</li>
+<li>sliderInput</li>
+<li>textInput</li>
+<li>radioButtons</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-46" style="background:;">
+  <hgroup>
+    <h2>Details for ui.r / part 2</h2>
+  </hgroup>
+  <article>
+    <p>Elements for structural usage:</p>
+
+<ul>
+<li>conditionalPanel</li>
+<li>tabsetPanel + tabPanel</li>
+<li>includeMarkdown</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-47" style="background:;">
+  <hgroup>
+    <h2>Details for server.r</h2>
+  </hgroup>
+  <article>
+    <p>output components:</p>
+
+<ul>
+<li>renderPlot</li>
+<li>renderPrint</li>
+<li>renderGvis </li>
+<li>renderTable</li>
+</ul>
+
+<p>additional compontents:</p>
+
+<ul>
+<li>downloadHandler</li>
+<li>fileInput</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-48" style="background:;">
+  <hgroup>
+    <h2>Example 1: Select data for a scatter chart</h2>
+  </hgroup>
+  <article>
+    <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_1/" width="100%" 
+height="100%" frameborder="0">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-49" style="background:;">
+  <hgroup>
+    <h2>Example 1: server.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r"># Contributed by Joe Cheng, February 2013 Requires googleVis version 0.4
+# and shiny 0.4 or greater
+library(googleVis)
+
+shinyServer(function(input, output) {
+    datasetInput &lt;- reactive({
+        switch(input$dataset, rock = rock, pressure = pressure, cars = cars)
+    })
+    output$view &lt;- renderGvis({
+        # instead of renderPlot
+        gvisScatterChart(datasetInput(), options = list(width = 400, height = 400))
+    })
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-50" style="background:;">
+  <hgroup>
+    <h2>Example 1: ui.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">shinyUI(pageWithSidebar(
+  headerPanel(&quot;Example 1: scatter chart&quot;),
+  sidebarPanel(
+    selectInput(&quot;dataset&quot;, &quot;Choose a dataset:&quot;, 
+                choices = c(&quot;rock&quot;, &quot;pressure&quot;, &quot;cars&quot;))
+  ),
+  mainPanel(
+    htmlOutput(&quot;view&quot;) ## not plotOut!
+  )
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-51" style="background:;">
+  <hgroup>
+    <h2>Example 2: Interactive table</h2>
+  </hgroup>
+  <article>
+    <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_2/" width="100%" 
+height="100%" frameborder="0">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-52" style="background:;">
+  <hgroup>
+    <h2>Example 2: server.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r"># Diego de Castillo, February 2013
+library(datasets)
+library(googleVis)
+shinyServer(function(input, output) {
+  myOptions &lt;- reactive({
+    list(
+      page=ifelse(input$pageable==TRUE,&#39;enable&#39;,&#39;disable&#39;),
+      pageSize=input$pagesize,
+      height=400
+    )
+  })
+  output$myTable &lt;- renderGvis({
+    gvisTable(Population[,1:5],options=myOptions())         
+  })
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-53" style="background:;">
+  <hgroup>
+    <h2>Example 2: ui.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">shinyUI(pageWithSidebar(
+  headerPanel(&quot;Example 2: pageable table&quot;),
+  sidebarPanel(
+    checkboxInput(inputId = &quot;pageable&quot;, label = &quot;Pageable&quot;),
+    conditionalPanel(&quot;input.pageable==true&quot;,
+                     numericInput(inputId = &quot;pagesize&quot;,
+                                  label = &quot;Countries per page&quot;,10))    
+  ),
+  mainPanel(
+    htmlOutput(&quot;myTable&quot;)
+  )
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-54" style="background:;">
+  <hgroup>
+    <h2>Example 3: Animated geo chart</h2>
+  </hgroup>
+  <article>
+    <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_3/" width="100%" 
+height="100%" frameborder="0">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-55" style="background:;">
+  <hgroup>
+    <h2>Example 3: global.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Markus Gesmann, February 2013
+## Prepare data to be displayed
+## Load presidential election data by state from 1932 - 2012
+dat &lt;- read.csv(&quot;http://dl.dropboxusercontent.com/u/7586336/blogger/US%20Presidential%20Elections.csv&quot;, 
+                stringsAsFactors=TRUE)
+
+
+## Add min and max values to the data
+datminmax = data.frame(state=rep(c(&quot;Min&quot;, &quot;Max&quot;),21), 
+                       demVote=rep(c(0, 100),21),
+                       year=sort(rep(seq(1932,2012,4),2)))
+dat &lt;- rbind(dat[,1:3], datminmax)
+require(googleVis)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Example 3: server.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">shinyServer(function(input, output) {
+  myYear &lt;- reactive({
+    input$Year
+  })
+  output$year &lt;- renderText({
+    paste(&quot;Democratic share of the presidential vote in&quot;, myYear())
+  })
+  output$gvis &lt;- renderGvis({
+    myData &lt;- subset(dat, (year &gt; (myYear()-1)) &amp; (year &lt; (myYear()+1)))
+    gvisGeoChart(myData,
+                 locationvar=&quot;state&quot;, colorvar=&quot;demVote&quot;,
+                 options=list(region=&quot;US&quot;, displayMode=&quot;regions&quot;, 
+                              resolution=&quot;provinces&quot;,
+                              width=400, height=380,
+                              colorAxis=&quot;{colors:[&#39;#FFFFFF&#39;, &#39;#0000FF&#39;]}&quot;
+                 ))     
+    })
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-57" style="background:;">
+  <hgroup>
+    <h2>Example 3: ui.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">shinyUI(pageWithSidebar(
+  headerPanel(&quot;Example 3: animated geo chart&quot;),
+  sidebarPanel(
+    sliderInput(&quot;Year&quot;, &quot;Election year to be displayed:&quot;, 
+                min=1932, max=2012, value=2012,  step=4,
+                format=&quot;###0&quot;,animate=TRUE)
+  ),
+  mainPanel(
+    h3(textOutput(&quot;year&quot;)), 
+    htmlOutput(&quot;gvis&quot;)
+  )
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-58" style="background:;">
+  <hgroup>
+    <h2>Example 4: googleVis with interaction</h2>
+  </hgroup>
+  <article>
+    <iframe src="http://glimmer.rstudio.com/mages/Interaction/" width="100%" 
+height="100%" frameborder="0">Loading</iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-59" style="background:;">
+  <hgroup>
+    <h2>Example 4: server.R / part 1</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">require(googleVis)
+shinyServer(function(input, output) {
+  datasetInput &lt;- reactive({
+    switch(input$dataset, &quot;pressure&quot; = pressure, &quot;cars&quot; = cars)
+  })
+  output$view &lt;- renderGvis({    
+    jscode &lt;- &quot;var sel = chart.getSelection();
+    var row = sel[0].row;
+    var text = data.getValue(row, 1);               
+    $(&#39;input#selected&#39;).val(text);
+    $(&#39;input#selected&#39;).trigger(&#39;change&#39;);&quot;    
+    gvisScatterChart(data.frame(datasetInput()),
+                     options=list(gvis.listener.jscode=jscode,
+                                  height=200, width=300))
+
+  })
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-60" style="background:;">
+  <hgroup>
+    <h2>Example 4: server.R / part 2</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">  output$distPlot &lt;- renderPlot({
+    if (is.null(input$selected))
+      return(NULL)
+
+    dist &lt;- rnorm(input$selected)
+    hist(dist,main=input$selected)
+  })
+
+  output$selectedOut &lt;- renderUI({
+    textInput(&quot;selected&quot;, &quot;&quot;, value=&quot;10&quot;)
+  })
+  outputOptions(output, &quot;selectedOut&quot;, suspendWhenHidden=FALSE)   
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-61" style="background:;">
+  <hgroup>
+    <h2>Example 4: ui.R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">require(googleVis)
+shinyUI(pageWithSidebar(
+  headerPanel(&quot;&quot;, windowTitle=&quot;Example googleVis with interaction&quot;),
+  sidebarPanel(
+    tags$head(tags$style(type=&#39;text/css&#39;, &quot;#selected{ display: none; }&quot;)),
+    selectInput(&quot;dataset&quot;, &quot;Choose a dataset:&quot;, 
+                choices = c(&quot;pressure&quot;, &quot;cars&quot;)),
+    uiOutput(&quot;selectedOut&quot;)
+  ),
+  mainPanel(
+    tabsetPanel(
+      tabPanel(&quot;Main&quot;,
+               htmlOutput(&quot;view&quot;),
+               plotOutput(&quot;distPlot&quot;, width=&quot;300px&quot;, height=&quot;200px&quot;)),
+      tabPanel(&quot;About&quot;, includeMarkdown(&#39;README.md&#39;)
+      ))))
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-62" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p>Three objects build the framework:</p>
+
+<ul>
+<li><p>reactive source     [selectInput] 
+<img src="assets/img/source.png" alt="source" style="vertical-align:middle;"></p></li>
+<li><p>reactive conductor  [db-connect / calculate]
+<img src="assets/img/conductor.png" alt="conductor" style="vertical-align:middle;"></p></li>
+<li><p>reactive endpoint    [renderPlot/renderTable]
+<img src="assets/img/endpoint.png" alt="endpoint" style="vertical-align:middle;"></p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-63" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_1.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-64" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_2.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-65" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_3.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-66" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_4.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-67" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_5.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-68" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_6.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-69" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_7.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-70" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_8.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-71" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_9.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-72" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_10.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-73" style="background:;">
+  <hgroup>
+    <h2>Reactive model</h2>
+  </hgroup>
+  <article>
+    <p><img src="assets/img/reactivemodel_11.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-74" style="background:;">
+  <hgroup>
+    <h2>Further reading and examples</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://www.rstudio.com/shiny/">Shiny by RStudio</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2013/02/first-steps-of-using-googlevis-on-shiny.html">First steps with googleVis on shiny</a></li>
+<li><a href="http://glimmer.rstudio.com:8787">RStudio Glimmer Server</a></li>
+<li><a href="http://glimmer.rstudio.com/reinholdsson/shiny-dashboard/">BI Dashbord with shiny and rCharts</a></li>
+<li><a href="https://github.com/ramnathv/shinyExamples">Shiny examples with slidify</a></li>
+<li><a href="http://www.r-bloggers.com/?s=shiny">Shiny on R-Bloggers</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="segue dark" id="slide-75" style="background:;">
+  <hgroup>
+    <h2>The End. Questions?</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-76" style="background:;">
+  <hgroup>
+    <h2>How we created these slides</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(slidify)
+author(&quot;googleVis_Tutorial&quot;)
+## Edit the file index.Rmd file and then
+slidify(&quot;index.Rmd&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-77" style="background:;">
+  <hgroup>
+    <h2>Blog articles with googleVis tips</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://lamages.blogspot.co.uk/2013/04/how-to-set-axis-options-in-googlevis.html">How to set axis options in googleVis</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2013/03/googlevis-042-with-support-for-shiny.html">World Bank data demo</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2013/02/first-steps-of-using-googlevis-on-shiny.html">First steps of using googleVis on shiny</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2012/10/googlevis-032-is-released-better.html">Using googleVis with knitr</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2012/08/rook-rocks-example-with-googlevis.html">Rook rocks! Example with googleVis</a></li>
+<li><a href="http://lamages.blogspot.co.uk/2012/02/reshaping-world.html">Plotting share price data</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-78" style="background:;">
+  <hgroup>
+    <h2>Other R packages</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li> <a href="http://animation.yihui.name/">R animation package allows to create SWF, GIF and MPEG directly</a></li>
+<li> <a href="http://cran.r-project.org/web/packages/iplots/">iplots: iPlots - interactive graphics for R</a></li>
+<li> <a href="http://rforge.net/Acinonyx/index.html">Acinonyx aka iPlots eXtreme</a></li>
+<li> <a href="http://cran.r-project.org/web/packages/gridSVG/index.html">gridSVG: Export grid graphics as SVG</a></li>
+<li> <a href="http://cran.r-project.org/web/packages/plotGoogleMaps/">plotGoogleMaps: Plot HTML output with Google Maps API and your own data</a></li>
+<li> <a href="http://cran.r-project.org/web/packages/RgoogleMaps/index.html">RgoogleMaps: Overlays on Google map tiles in R</a></li>
+<li><a href="http://ramnathv.github.io/rCharts/">rCharts</a></li>
+<li><a href="https://github.com/nachocab/clickme">clickme</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-79" style="background:;">
+  <hgroup>
+    <h2>Thanks</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Google, who make the visualisation API available</li>
+<li>All the guys behind <a href="http://www.gapminder.org">www.gapminder.org</a> and Hans Rosling for telling
+everyone that data is not boring </li>
+<li>Sebastian Perez Saaibi for his inspiring talk on &#39;Generator
+Tool for Google Motion Charts&#39; at the R/RMETRICS conference 2010</li>
+<li>Henrik Bengtsson for providing the &#39;R.rsp: R Server Pages&#39;
+package and his reviews and comments</li>
+<li>Duncan Temple Lang for providing the &#39;RJSONIO&#39; package</li>
+<li>Deepayan Sarkar for showing us in the lattice package how to deal
+with lists of options<br></li>
+<li>Paul Cleary for a bug report on the handling of months:
+Google date objects expect the months Jan.- Dec. as 0 - 11 and
+not 1 - 12.</li>
+<li>Ben Bolker for comments on plot.gvis and the usage of temporary
+files<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-80" style="background:;">
+  <hgroup>
+    <h2>Thanks</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>John Verzani for pointing out how to use the R http help server</li>
+<li>Cornelius Puschmann and Jeffrey Breen for highlighting a
+dependency issue with RJONSIO version 0.7-1</li>
+<li>Manoj Ananthapadmanabhan and Anand Ramalingam for providing
+ideas and code to animate a Google Geo Map</li>
+<li>Rahul Premraj for pointing out a rounding issue with Google Maps </li>
+<li>Mike Silberbauer for an example showing how to shade the
+areas in annotated time line charts</li>
+<li>Tony Breyal for providing instructions on changing the Flash
+security settings to display Flash charts locally </li>
+<li>Alexander Holcroft for reporting a bug in gvisMotionChart
+when displaying data with special characters in column names</li>
+<li>Pat Burns for pointing out typos in the vignette</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-81" style="background:;">
+  <hgroup>
+    <h2>Thanks</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Jason Pickering for providing a patch to allow for quarterly 
+and weekly time dimensions to be displayed with gvisMotionChart</li>
+<li>Oliver Jay and Wai Tung Ho for reporting an issue with one-row 
+data sets</li>
+<li>Erik Bülow for pointing out how to load the Google API via a
+secure connection</li>
+<li>Sebastian Kranz for comments to enhance the argument list for
+gvisMotionChart to make it more user friendly </li>
+<li>Sebastian Kranz and Wei Luo for providing ideas and code to
+improve the transformation of R data frames into JSON code</li>
+<li>Sebastian Kranz for reporting a bug in version 0.3.0</li>
+<li>Leonardo Trabuco for helping to clarify the usage of the
+argument state in the help file of gvisMotionChart</li>
+<li>Mark Melling for reporting an issue with jsDisplayChart and
+providing a solution</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-82" style="background:;">
+  <hgroup>
+    <h2>Thanks</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Joe Cheng for code contribution to make googleVis work with shiny</li>
+<li>John Maindonald for reporting that the WorldBank demo didn&#39;t 
+download all data, but only the first 12000 records.</li>
+<li>Sebastian Campbell for reporting a typo in the Andrew and Stock
+data set and pointing out that the core charts, such as line
+charts accept also date variables for the x-axis. </li>
+<li>John Maindonald for providing a simplified version of the
+WorldBank demo using the WDI package.</li>
+<li>John Muschelli for suggesting to add &#39;hovervar&#39; as an additional
+argument to gvisGeoChart.</li>
+<li><a href="https://github.com/ramnathv">Ramnath Vaidyanathan</a> for slidify.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-83" style="background:;">
+  <hgroup>
+    <h2>Session Info</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sessionInfo()
+</code></pre>
+
+<pre><code>## R version 3.0.1 (2013-05-16)
+## Platform: x86_64-apple-darwin10.8.0 (64-bit)
+## 
+## locale:
+## [1] de_DE.UTF-8/de_DE.UTF-8/de_DE.UTF-8/C/de_DE.UTF-8/de_DE.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] XML_3.95-0.2    RJSONIO_1.0-3   googleVis_0.4.3 slidify_0.3.3  
+## 
+## loaded via a namespace (and not attached):
+## [1] digest_0.6.3   evaluate_0.4.3 formatR_0.7    knitr_1.2     
+## [5] markdown_0.5.5 stringr_0.6.2  tools_3.0.1    whisker_0.3-2 
+## [9] yaml_2.1.7
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -922,12 +922,12 @@ slidify("index.Rmd")
 
 ## Other R packages
 
-*  [R animation package allows to create SWF, GIF and MPEG directly](http://animation.yihui.name/)
-*  [iplots: iPlots - interactive graphics for R](http://cran.r-project.org/web/packages/iplots/)
-*  [Acinonyx aka iPlots eXtreme](http://rforge.net/Acinonyx/index.html)
-*  [gridSVG: Export grid graphics as SVG](http://cran.r-project.org/web/packages/gridSVG/index.html)
-*  [plotGoogleMaps: Plot HTML output with Google Maps API and your own data](http://cran.r-project.org/web/packages/plotGoogleMaps/)
-*  [RgoogleMaps: Overlays on Google map tiles in R](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
+* [R animation package allows to create SWF, GIF and MPEG directly](http://animation.yihui.name/)
+* [iplots: iPlots - interactive graphics for R](http://cran.r-project.org/web/packages/iplots/)
+* [Acinonyx aka iPlots eXtreme](http://rforge.net/Acinonyx/index.html)
+* [gridSVG: Export grid graphics as SVG](http://cran.r-project.org/web/packages/gridSVG/index.html)
+* [plotGoogleMaps: Plot HTML output with Google Maps API and your own data](http://cran.r-project.org/web/packages/plotGoogleMaps/)
+* [RgoogleMaps: Overlays on Google map tiles in R](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
 * [rCharts](http://ramnathv.github.io/rCharts/)
 * [clickme](https://github.com/nachocab/clickme)
 

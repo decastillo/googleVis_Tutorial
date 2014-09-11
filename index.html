@@ -4052,7 +4052,7 @@ shinyServer(function(input, output) {
     <h2>Example 3: Animated geo chart</h2>
   </hgroup>
   <article>
-    <iframe src="http://glimmer.rstudio.com/mages/LancasterExample_3/" width="100%" 
+    <iframe src="https://mages.shinyapps.io/Example_4/" width="100%" 
 height="100%" frameborder="0">Loading</iframe>
 
   </article>
@@ -4067,8 +4067,10 @@ height="100%" frameborder="0">Loading</iframe>
     <pre><code class="r">## Markus Gesmann, February 2013
 ## Prepare data to be displayed
 ## Load presidential election data by state from 1932 - 2012
-dat &lt;- read.csv(&quot;http://dl.dropboxusercontent.com/u/7586336/blogger/US%20Presidential%20Elections.csv&quot;, 
-                stringsAsFactors=TRUE)
+library(RCurl)
+dat <- getURL("https://dl.dropboxusercontent.com/u/7586336/blogger/US%20Presidential%20Elections.csv", 
+              ssl.verifypeer=0L, followlocation=1L)
+dat <- read.csv(text=dat)
 
 
 ## Add min and max values to the data
